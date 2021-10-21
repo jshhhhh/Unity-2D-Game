@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class MovingObject : MonoBehaviour
 {
+    private BoxCollider2D boxCollider;
+    //통과가 불가능한 레이어 설정
+    public LayerMask layerMask;
+
     public float speed;
 
     private Vector3 vector;
@@ -25,7 +29,9 @@ public class MovingObject : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {   //캐릭터 객체의 Animator Component를 통제하기 위해
+    {
+        boxCollider = GetComponent<BoxCollider2D>();
+       //캐릭터 객체의 Animator Component를 통제하기 위해
         animator = GetComponent<Animator>();
     }
 
@@ -58,6 +64,27 @@ public class MovingObject : MonoBehaviour
             //방향키에 따라 1, -1를 vector.x에 리턴받고, DirX에 연결된 애니메이션 실행
             animator.SetFloat("DirX", vector.x);
             animator.SetFloat("DirY", vector.y);
+
+            //A지점에서 레이저를 쏴서 B지점에 무사히 도달함: hit = Null;
+            //레이저가 방해물에 막히면: hit = 방해물;
+            RaycastHit2D hit;
+
+            //A지점, 캐릭터의 현재 위치값
+            Vector2 start = transform.position;
+            //B지점, 캐릭터가 이동하고자 하는 위치값이 저장됨
+            //현재 위치값 + 앞으로 이동하고자 하는 위치값이 저장됨
+            Vector2 end = start + new Vector2(vector.x * speed * walkCount, vector.y * speed * walkCount);
+
+            //캐릭터 자체의 boxCollider에 충돌하는 일을 막기 위해 boxCollider를 끄고 레이저를 쏜 후에 다시 켜줌
+            boxCollider.enabled = false;
+            //레이저가 end지점까지 도달하는지
+            hit = Physics2D.Linecast(start, end, layerMask);
+            boxCollider.enabled = true;
+
+            //LayerMask에 해당하는 벽이 있다면 이 아래의 걷는 코드를 실행하지 않고 While문을 벗어남
+            if (hit.transform != null)
+                break;
+
             animator.SetBool("Walking", true);
 
 
