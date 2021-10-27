@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
+    static public CameraManager instance;
     //카메라가 따라갈 대상
     public GameObject target;
     //카메라의 속도
@@ -14,7 +15,16 @@ public class CameraManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        if(instance != null)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+        //이 오브젝트를 다른 씬을 불러올 때마다 파괴시키지 말라는 명령어
+            DontDestroyOnLoad(this.gameObject);
+            instance = this;
+        }
     }
 
     // Update is called once per frame

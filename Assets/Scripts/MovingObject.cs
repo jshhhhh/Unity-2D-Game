@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class MovingObject : MonoBehaviour
 {
+    //static으로 intance 변수의 값을 공유함
+    static public MovingObject instance;
+
+    //trasferMap 스크립트에 있는 transferMapName 변수의 값을 저장
+    public string currentMapName;
     private BoxCollider2D boxCollider;
     //통과가 불가능한 레이어 설정
     public LayerMask layerMask;
@@ -30,12 +35,24 @@ public class MovingObject : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //if문을 거치고 instance에 값이 주어짐
+        if(instance == null)
+        {
+            //이 오브젝트를 다른 씬을 불러올 때마다 파괴시키지 말라는 명령어
+        DontDestroyOnLoad(this.gameObject);
         boxCollider = GetComponent<BoxCollider2D>();
-       //캐릭터 객체의 Animator Component를 통제하기 위해
+        //캐릭터 객체의 Animator Component를 통제하기 위해
         animator = GetComponent<Animator>();
+            instance = this;
+        }
+        //다음 또 if문을 거치면 instance 값이 있으므로 객체가 삭제됨
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
 
-    //코루틴: 
+    //코루틴
     IEnumerator MoveCoroutine()
     {
         while(Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0)
