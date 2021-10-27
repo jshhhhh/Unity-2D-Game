@@ -3,13 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class TransferMap : MonoBehaviour
+public class TransferScene : MonoBehaviour
 {
     //이동할 맵의 이름
     public string transferMapName;
-
-    public Transform target;
-    public BoxCollider2D targetBound;
 
     //Player 스크립트를 thePlayer 변수로 불러옴
     private MovingObject thePlayer;
@@ -30,9 +27,8 @@ public class TransferMap : MonoBehaviour
         {
             //이동할 맵의 이름을 저장
             thePlayer.currentMapName = transferMapName;
-            theCamera.SetBound(targetBound);
-            theCamera.transform.position = new Vector3(target.transform.position.x, target.transform.position.y, theCamera.transform.position.z);
-            thePlayer.transform.position = target.transform.position;
+            //씬 불러옴
+            SceneManager.LoadScene(transferMapName);
         }
     }
 }
