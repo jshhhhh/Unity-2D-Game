@@ -13,6 +13,24 @@ public class MovingObject : MonoBehaviour
     //통과가 불가능한 레이어 설정
     public LayerMask layerMask;
 
+    /*
+    //오디오클립을 일일이 추가하는 방법
+    //사운드파일
+    public AudioClip walkSound_1;
+    public AudioClip walkSound_2;
+
+    //사운드 플레이어
+    private AudioSource audioSource;
+    */
+
+    //string(이름)으로 사운드에 접근
+    public string walkSound_1;
+    public string walkSound_2;
+    public string walkSound_3;
+    public string walkSound_4;
+
+    private AudioManager theAudio;
+
     public float speed;
 
     private Vector3 vector;
@@ -39,10 +57,12 @@ public class MovingObject : MonoBehaviour
         if(instance == null)
         {
             //이 오브젝트를 다른 씬을 불러올 때마다 파괴시키지 말라는 명령어
-        DontDestroyOnLoad(this.gameObject);
-        boxCollider = GetComponent<BoxCollider2D>();
-        //캐릭터 객체의 Animator Component를 통제하기 위해
-        animator = GetComponent<Animator>();
+            DontDestroyOnLoad(this.gameObject);
+            boxCollider = GetComponent<BoxCollider2D>();
+            //audioSource = GetComponent<AudioSource>();
+            //캐릭터 객체의 Animator Component를 통제하기 위해
+            animator = GetComponent<Animator>();
+            theAudio = FindObjectOfType<AudioManager>();
             instance = this;
         }
         //다음 또 if문을 거치면 instance 값이 있으므로 객체가 삭제됨
@@ -104,6 +124,26 @@ public class MovingObject : MonoBehaviour
 
             animator.SetBool("Walking", true);
 
+            //1에서 4 사이 랜덤으로
+            int temp = Random.Range(1, 4);
+            switch(temp)
+            {
+                case 1:
+                    theAudio.Play(walkSound_1);
+                    break;
+                case 2:
+                    theAudio.Play(walkSound_2);
+                    break;
+                case 3:
+                    theAudio.Play(walkSound_3);
+                    break;
+                case 4:
+                    theAudio.Play(walkSound_4);
+                    break;
+            }
+
+            //이런 식으로 함수들 사용 가능
+            //theAudio.SetVolume(walkSound_2, 0.5f);            
 
             while(currentWalkCount < walkCount)
             {            
@@ -126,6 +166,28 @@ public class MovingObject : MonoBehaviour
                 currentWalkCount++;
                 //0.01초 동안 코루틴 대기
                 yield return new WaitForSeconds(0.01f);
+
+                /*
+                //오디오클립을 일일이 추가하는 방법
+                //currentWalkCount는 20
+                if(currentWalkCount % 9 == 2)
+                {
+                    //1에서 2 사이 랜덤으로
+                    int temp = Random.Range(1, 2);
+                    switch(temp)
+                    {
+                        case 1:
+                        //컴포넌트에 public으로 받은 사운드를 추가하고 재생시킴
+                        audioSource.clip = walkSound_1;
+                        audioSource.Play();
+                            break;
+                        case 2:
+                        audioSource.clip = walkSound_2;
+                        audioSource.Play();
+                            break;
+                    }
+                }
+                */
             }
             currentWalkCount = 0;
         }
