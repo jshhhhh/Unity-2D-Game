@@ -39,8 +39,25 @@ public class BGMManager : MonoBehaviour
     //재생(몇 번 트랙을 재생할 건지)
     public void Play(int _playMusicTrack)
     {
+        //페이드아웃 후 다시 볼륨을 올려줌
+        source.volume = 1f;
         source.clip = clips[_playMusicTrack];
         source.Play();
+    }
+
+    public void SetVolume(float _volume)
+    {
+        source.volume = _volume;
+    }
+
+    public void Pause()
+    {
+        source.Pause();
+    }
+
+    public void Unpause()
+    {
+        source.UnPause();
     }
 
     //정지

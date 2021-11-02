@@ -13,7 +13,7 @@ public class TestScript2 : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        
+        StartCoroutine(abc());
     }
 
     IEnumerator abc()
