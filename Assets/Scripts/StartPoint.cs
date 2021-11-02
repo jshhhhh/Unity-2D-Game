@@ -8,7 +8,7 @@ public class StartPoint : MonoBehaviour
     public string startPoint;
 
     //Player의 currentMapName을 꺼내오기 위해
-    private MovingObject thePlayer;
+    private PlayerManager thePlayer;
 
     private CameraManager theCamera;
 
@@ -16,7 +16,7 @@ public class StartPoint : MonoBehaviour
     void Start()
     {
         theCamera = FindObjectOfType<CameraManager>();
-        thePlayer = FindObjectOfType<MovingObject>();
+        thePlayer = FindObjectOfType<PlayerManager>();
 
         if(startPoint == thePlayer.currentMapName)
         {

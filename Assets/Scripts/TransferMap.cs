@@ -12,7 +12,7 @@ public class TransferMap : MonoBehaviour
     public BoxCollider2D targetBound;
 
     //Player 스크립트를 thePlayer 변수로 불러옴
-    private MovingObject thePlayer;
+    private PlayerManager thePlayer;
     private CameraManager theCamera;
     // Start is called before the first frame update
     void Start()
@@ -20,7 +20,7 @@ public class TransferMap : MonoBehaviour
         theCamera = FindObjectOfType<CameraManager>();
         //FindObjectOfType: 하이어라키에 있는 모든 객체의 <> 컴포넌트를 검색해서 리턴(다수 객체)
         //GetComponent: 해당 스크립트가 적용된 객체의 <> 컴포넌트를 검색해서 리턴(단일 객체)
-        thePlayer = FindObjectOfType<MovingObject>();
+        thePlayer = FindObjectOfType<PlayerManager>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
