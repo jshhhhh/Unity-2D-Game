@@ -43,6 +43,7 @@ public class PlayerManager : MovingObject
         //if문을 거치고 instance에 값이 주어짐
         if (instance == null)
         {
+            queue = new Queue<string>();
             //이 오브젝트를 다른 씬을 불러올 때마다 파괴시키지 말라는 명령어
             DontDestroyOnLoad(this.gameObject);
             boxCollider = GetComponent<BoxCollider2D>();
