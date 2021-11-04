@@ -90,6 +90,7 @@ public class PlayerManager : MovingObject
             animator.SetFloat("DirX", vector.x);
             animator.SetFloat("DirY", vector.y);
 
+            //충돌 방지
             bool checkCollisionFlag = base.CheckCollision();
             //true가 반환되면 break(움직이지 않겠다)
             //false가 반환되면 아래의 걷기 코드 실행
@@ -117,7 +118,10 @@ public class PlayerManager : MovingObject
             }
 
             //이런 식으로 함수들 사용 가능
-            //theAudio.SetVolume(walkSound_2, 0.5f);            
+            //theAudio.SetVolume(walkSound_2, 0.5f);      
+
+            //움직이고자 하는 방향으로 boxcollider를 미리 옮겨줌
+            boxCollider.offset = new Vector2(vector.x * 0.7f * speed * walkCount, vector.y * 0.7f * speed * walkCount);      
 
             while (currentWalkCount < walkCount)
             {
@@ -138,6 +142,11 @@ public class PlayerManager : MovingObject
                     currentWalkCount++;
 
                 currentWalkCount++;
+
+                //boxcollider가 12만큼 이동하면 다시 원위치시켜줌
+                if(currentWalkCount == 12)
+                    boxCollider.offset = Vector2.zero;
+
                 //0.01초 동안 코루틴 대기
                 yield return new WaitForSeconds(0.01f);
 

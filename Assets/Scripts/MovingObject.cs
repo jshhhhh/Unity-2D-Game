@@ -28,10 +28,10 @@ public class MovingObject : MonoBehaviour
         //Move 함수가 실행될 때마다 queue에 방향(_dir)이 계속 쌓임
         queue.Enqueue(_dir);
         //notCoroutine이 false면 코루틴 실행(처음엔 무조건 실행)
-        if(!notCoroutine)
+        if (!notCoroutine)
         {
             notCoroutine = true;
-        StartCoroutine(MoveCoroutine(_dir, _frequency));
+            StartCoroutine(MoveCoroutine(_dir, _frequency));
         }
     }
 
@@ -40,6 +40,24 @@ public class MovingObject : MonoBehaviour
         //Count가 없어질 때까지 -> 큐가 빌 때까지
         while (queue.Count != 0)
         {
+            switch(_frequency)
+                {
+                    case 1:
+                        yield return new WaitForSeconds(4f);
+                        break;
+                    case 2:
+                        yield return new WaitForSeconds(3f);
+                        break;
+                    case 3:
+                        yield return new WaitForSeconds(2f);
+                        break;
+                    case 4:
+                        yield return new WaitForSeconds(1f);
+                        break;
+                    case 5:
+                        break;
+                }
+
             //Dequeue한 값이 들어감
             string direction = queue.Dequeue();
             //switch문을 돌고 나면 벡터 초기화
@@ -63,7 +81,29 @@ public class MovingObject : MonoBehaviour
 
             animator.SetFloat("DirX", vector.x);
             animator.SetFloat("DirY", vector.y);
+
+            while (true)
+            {
+                //충돌 방지
+                bool checkCollisionFlag = CheckCollision();
+                //true가 반환되면 break(움직이지 않겠다)
+                //false가 반환되면 아래의 걷기 코드 실행
+                if (checkCollisionFlag)
+                {
+                    animator.SetBool("Walking", false);
+                    yield return new WaitForSeconds(1f);
+                }
+                else
+                {                    
+                    break;
+                }
+            }
+
             animator.SetBool("Walking", true);
+
+            //움직이고자 하는 방향으로 boxcollider를 미리 옮겨줌
+            boxCollider.offset = new Vector2(vector.x * 0.7f * speed * walkCount, vector.y * 0.7f * speed * walkCount);
+
 
             while (currentWalkCount < walkCount)
             {
@@ -73,6 +113,9 @@ public class MovingObject : MonoBehaviour
                 //transform.position = vector로도 움직일 수 있음
 
                 currentWalkCount++;
+                //boxcollider가 12만큼 이동하면 다시 원위치시켜줌
+                if(currentWalkCount == 12)
+                    boxCollider.offset = Vector2.zero;
                 //0.01초 동안 코루틴 대기
                 yield return new WaitForSeconds(0.01f);
             }
