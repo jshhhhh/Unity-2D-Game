@@ -1616,12 +1616,12 @@ MonoBehaviour:
     m_FontSize: 35
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 1
+    m_MinSize: 0
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
+    m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: New Text
@@ -1677,6 +1677,14 @@ MonoBehaviour:
     loop: 0
   - name: footsteps 4
     clip: {fileID: 8300000, guid: 24d812f3be4133e4c9319fe6e8c0314b, type: 3}
+    Volume: 1
+    loop: 0
+  - name: type_sound
+    clip: {fileID: 8300000, guid: 58a5dd5888761af4dbff225d52caf926, type: 3}
+    Volume: 1
+    loop: 0
+  - name: enter_sound
+    clip: {fileID: 8300000, guid: 4fbc62a75b72f6d42b33069b6c067e1d, type: 3}
     Volume: 1
     loop: 0
 --- !u!4 &1454206423
@@ -2017,6 +2025,7 @@ MonoBehaviour:
   walkSound_3: footsteps 3
   walkSound_4: footsteps 4
   runSpeed: 2.4
+  notMove: 0
 --- !u!212 &1601683116
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2157,7 +2166,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1621126349}
-  - component: {fileID: 1621126350}
   m_Layer: 5
   m_Name: Dialogue Manager
   m_TagString: Untagged
@@ -2187,26 +2195,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1621126350
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1621126348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d3ea873b9e020243936556bbccbea9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  text: {fileID: 1439005690}
-  rendererSprite: {fileID: 2120708477}
-  rendererDialogueWindow: {fileID: 681415702}
-  listSentences: []
-  listSprites: []
-  listDialogueWindows: []
-  animSprite: {fileID: 2120708479}
-  animDialogueWindow: {fileID: 681415704}
 --- !u!1 &1706778392
 GameObject:
   m_ObjectHideFlags: 0
@@ -2276,6 +2264,7 @@ GameObject:
   - component: {fileID: 1846821678}
   - component: {fileID: 1846821677}
   - component: {fileID: 1846821676}
+  - component: {fileID: 1846821680}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2364,6 +2353,26 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1846821680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1846821675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3ea873b9e020243936556bbccbea9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 1439005690}
+  rendererSprite: {fileID: 2120708477}
+  rendererDialogueWindow: {fileID: 681415702}
+  animSprite: {fileID: 2120708479}
+  animDialogueWindow: {fileID: 681415704}
+  typeSound: type_sound
+  enterSound: enter_sound
+  talking: 0
 --- !u!1 &1900003382
 GameObject:
   m_ObjectHideFlags: 0

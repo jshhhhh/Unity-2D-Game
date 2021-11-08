@@ -37,6 +37,18 @@ public class OrderManager : MonoBehaviour
         return tempList;
     }
 
+    //PlayerManager의 notMove 변수 true로
+    public void NotMove()
+    {
+        thePlayer.notMove = true;
+    }
+
+    //PlayerManager의 notMove 변수 false로
+    public void Move()
+    {
+        thePlayer.notMove = false;
+    }
+
     //벽을 뚫음(boxCollider off)
     public void SetThrought(string _name)
     {

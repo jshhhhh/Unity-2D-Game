@@ -37,6 +37,9 @@ public class PlayerManager : MovingObject
     //코루틴 반복 실행 방지 변수
     private bool canMove = true;
 
+    //캐릭터가 대사할 때 움직일 수 없게 하는 변수
+    public bool notMove = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -63,7 +66,7 @@ public class PlayerManager : MovingObject
     //코루틴
     IEnumerator MoveCoroutine()
     {
-        while (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0)
+        while (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0 && !notMove)
         {
             //LeftShift 누르면 달리기 구현
             if (Input.GetKey(KeyCode.LeftShift))
@@ -181,7 +184,7 @@ public class PlayerManager : MovingObject
     // Update is called once per frame
     void Update()
     {
-        if (canMove)
+        if (canMove && !notMove)
         {
             //Horizontal: 우 방향키는 1, 좌 방향키는 -1 리턴. Vertical: 상 방향키는 1, 하 방향키는 -1 리턴
             if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
