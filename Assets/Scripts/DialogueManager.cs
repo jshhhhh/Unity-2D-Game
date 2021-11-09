@@ -45,7 +45,6 @@ public class DialogueManager : MonoBehaviour
     public string enterSound;
 
     private AudioManager theAudio;
-    private OrderManager theOrder;
 
     //대화가 이루어지지 않을 때 z키 입력을 막는 변수
     public bool talking = false;
@@ -64,15 +63,13 @@ public class DialogueManager : MonoBehaviour
         listSprites = new List<Sprite>();
         listDialogueWindows = new List<Sprite>();
         theAudio = FindObjectOfType<AudioManager>();
-        theOrder = FindObjectOfType<OrderManager>();
     }
 
     //인수로 받은 Dialogue 클래스를 for문으로 넣음
     public void ShowDialogue(Dialogue dialogue)
     {
+        //대화가 시작되면 talking true로
         talking = true;
-
-        theOrder.NotMove();
 
         for (int i = 0; i < dialogue.sentences.Length; i++)
         {
@@ -101,8 +98,8 @@ public class DialogueManager : MonoBehaviour
         animSprite.SetBool("Appear", false);
         animDialogueWindow.SetBool("Appear", false);
 
+        //대화가 끝나면 talking false로
         talking = false;
-        theOrder.Move();
     }
 
     IEnumerator StartDialogueCoroutine()
