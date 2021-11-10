@@ -11,6 +11,7 @@ public class Event1 : MonoBehaviour
     private OrderManager theOrder;
     //캐릭터의 방향을 불러오기 위해
     private PlayerManager thePlayer;
+    private FadeManager theFade;
 
     //한 번만 실행되게
     private bool flag;
@@ -22,6 +23,7 @@ public class Event1 : MonoBehaviour
         theDM = FindObjectOfType<DialogueManager>();
         theOrder = FindObjectOfType<OrderManager>();
         thePlayer = FindObjectOfType<PlayerManager>();
+        theFade = FindObjectOfType<FadeManager>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -57,6 +59,7 @@ public class Event1 : MonoBehaviour
         //위의 움직임이 끝날 때까지(큐가 다 빠질 때까지) 넘어가지 않음
         yield return new WaitUntil(() => thePlayer.queue.Count == 0);
 
+        theFade.Flash();
         theDM.ShowDialogue(dialogue_2);
 
         yield return new WaitUntil(() => !theDM.talking);
