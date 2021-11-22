@@ -113,7 +113,7 @@ public class ChoiceManager : MonoBehaviour
         answerList.Clear();
         anim.SetBool("Appear", false);
         choiceIng = false;
-        //선탣창이 사라지는 애니메이션을 보기 위해 유예
+        //선택창이 사라지는 애니메이션을 보기 위해 유예
         yield return new WaitForSeconds(0.2f);
         go.SetActive(true);
     }
@@ -212,7 +212,7 @@ public class ChoiceManager : MonoBehaviour
                 //효과음
                 theAudio.Play(keySound);
                 //아래 방향키를 눌렀을 때 result(선택창)의 값이 count 이상이면 다시 0(선택창의 최상단)으로
-                if (result < 0)
+                if (result < count)
                     result++;
                 else
                     result = 0;
@@ -224,13 +224,6 @@ public class ChoiceManager : MonoBehaviour
                 theAudio.Play(enterSound);
                 keyInput = false;
                 ExitChoice();
-
-                //아래 방향키를 눌렀을 때 result(선택창)의 값이 count 이상이면 다시 0(선택창의 최상단)으로
-                if (result < 0)
-                    result++;
-                else
-                    result = 0;
-                Selection();
             }
         }
     }

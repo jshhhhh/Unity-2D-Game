@@ -7303,7 +7303,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1441468427
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8367,6 +8367,85 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1764778318}
   m_CullTransparentMesh: 1
+--- !u!1 &1771539330
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1771539333}
+  - component: {fileID: 1771539332}
+  - component: {fileID: 1771539331}
+  m_Layer: 0
+  m_Name: TestChoice
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!61 &1771539331
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1771539330}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 40, y: 40}
+  m_EdgeRadius: 0
+--- !u!114 &1771539332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1771539330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ec3cb917031c34449e30ee92bce7108, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  choice:
+    question: "Q. \uC9C8\uBB38\uC774 \uC798 \uB4F1\uC7A5\uD558\uB294\uAC00, \uC548
+      \uB4F1\uC7A5\uD558\uB294\uAC00"
+    answers:
+    - "1. \uB9E4\uC6B0 \uC798 \uB4F1\uC7A5\uD55C\uB2E4."
+    - "2. \uC870\uAE08 \uC798 \uB4F1\uC7A5\uD55C\uB2E4."
+    - "3. \uC870\uAE08 \uC798 \uC548 \uB4F1\uC7A5\uD55C\uB2E4."
+    - "4. \uB9E4\uC6B0 \uC798 \uC548 \uB4F1\uC7A5\uD55C\uB2E4."
+  flag: 0
+--- !u!4 &1771539333
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1771539330}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 288, y: -120, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1796163756
 GameObject:
   m_ObjectHideFlags: 0
@@ -8471,6 +8550,7 @@ GameObject:
   - component: {fileID: 1846821676}
   - component: {fileID: 1846821680}
   - component: {fileID: 1846821681}
+  - component: {fileID: 1846821682}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -8597,6 +8677,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rain: {fileID: 305903814}
   rain_sound: rain
+--- !u!114 &1846821682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1846821675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1a5cc38c111c174b928000cb51b8e7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  go: {fileID: 1441468426}
+  question_Text: {fileID: 1160043294}
+  answer_Text:
+  - {fileID: 772581631}
+  - {fileID: 590035949}
+  - {fileID: 1396291953}
+  - {fileID: 1764778320}
+  answer_Panel:
+  - {fileID: 1185865083}
+  - {fileID: 956993073}
+  - {fileID: 183413253}
+  - {fileID: 1756740009}
+  anim: {fileID: 1441468428}
+  keySound: type_sound
+  enterSound: enter_sound
+  choiceIng: 0
 --- !u!1 &1900003382
 GameObject:
   m_ObjectHideFlags: 0
