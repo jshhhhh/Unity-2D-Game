@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestScript2 : MonoBehaviour
+public class TestMusicFadeOutIn : MonoBehaviour
 {
     BGMManager BGM;
 

@@ -17,7 +17,8 @@ public class TestRain : MonoBehaviour
     {
         if(rain)
         {
-            theWeather.RainDrop();
+            theWeather.Rain();
+            // theWeather.RainDrop();
         }
         else
         {

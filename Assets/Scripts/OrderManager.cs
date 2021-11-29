@@ -4,6 +4,24 @@ using UnityEngine;
 
 public class OrderManager : MonoBehaviour
 {
+    static public OrderManager instance;
+
+    #region Singleton
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            //이 오브젝트를 다른 씬을 불러올 때마다 파괴시키지 말라는 명령어
+            DontDestroyOnLoad(this.gameObject);
+            instance = this;
+        }
+    }
+    #endregion Singleton
+
     //이벤트 도중 키입력 처리 방지
     private PlayerManager thePlayer;
     //배열은 한 번 고정되면 크기 변경이 안 되기 때문에 사용하지 않음

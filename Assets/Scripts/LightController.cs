@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class LightController : MonoBehaviour
 {
+    public LightController instance;
+
     //플레이어가 바라보는 방향을 알기 위해
     private PlayerManager thePlayer;
     
@@ -11,6 +13,22 @@ public class LightController : MonoBehaviour
     private Vector2 vector;
 
     private Quaternion rotation;
+
+    #region Singleton
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            //이 오브젝트를 다른 씬을 불러올 때마다 파괴시키지 말라는 명령어
+            DontDestroyOnLoad(this.gameObject);
+            instance = this;
+        }
+    }
+    #endregion Singleton
 
     // Start is called before the first frame update
     void Start()

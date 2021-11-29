@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerManager : MovingObject
 {
@@ -27,6 +28,10 @@ public class PlayerManager : MovingObject
     public string walkSound_4;
 
     private AudioManager theAudio;
+
+    public OrderManager theOrder;
+    private FadeManager theFade;
+    private TransferScene theScene;
 
     public float runSpeed;
     private float applyRunSpeed;
@@ -55,6 +60,10 @@ public class PlayerManager : MovingObject
             animator = GetComponent<Animator>();
             theAudio = FindObjectOfType<AudioManager>();
             instance = this;
+
+            theOrder = FindObjectOfType<OrderManager>();
+            theFade = FindObjectOfType<FadeManager>();
+            theScene = FindObjectOfType<TransferScene>();
         }
         //다음 또 if문을 거치면 instance 값이 있으므로 객체가 삭제됨
         else
@@ -97,7 +106,7 @@ public class PlayerManager : MovingObject
             bool checkCollisionFlag = base.CheckCollision();
             //true가 반환되면 break(움직이지 않겠다)
             //false가 반환되면 아래의 걷기 코드 실행
-            if(checkCollisionFlag)
+            if (checkCollisionFlag || notMove)
                 break;
 
             animator.SetBool("Walking", true);
@@ -124,10 +133,10 @@ public class PlayerManager : MovingObject
             //theAudio.SetVolume(walkSound_2, 0.5f);      
 
             //움직이고자 하는 방향으로 boxcollider를 미리 옮겨줌
-            boxCollider.offset = new Vector2(vector.x * 0.7f * speed * walkCount, vector.y * 0.7f * speed * walkCount);      
+            boxCollider.offset = new Vector2(vector.x * 0.7f * speed * walkCount, vector.y * 0.7f * speed * walkCount);
 
             while (currentWalkCount < walkCount)
-            {
+            {                
                 if (vector.x != 0)
                 {
                     //Translate: 현재 있는 값에서 저 수치만큼 더해줌
@@ -147,7 +156,7 @@ public class PlayerManager : MovingObject
                 currentWalkCount++;
 
                 //boxcollider가 12만큼 이동하면 다시 원위치시켜줌
-                if(currentWalkCount == 12)
+                if (currentWalkCount == 10)
                     boxCollider.offset = Vector2.zero;
 
                 //0.01초 동안 코루틴 대기

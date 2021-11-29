@@ -4,6 +4,25 @@ using UnityEngine;
 
 public class FadeManager : MonoBehaviour
 {
+    public FadeManager instance;
+    public PlayerManager thePlayer;
+
+    #region Singleton
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            //이 오브젝트를 다른 씬을 불러올 때마다 파괴시키지 말라는 명령어
+            DontDestroyOnLoad(this.gameObject);
+            instance = this;
+        }
+    }
+    #endregion Singleton
+
     public SpriteRenderer white;
     public SpriteRenderer black;
     private Color color;
@@ -66,6 +85,7 @@ public class FadeManager : MonoBehaviour
 
     public void FadeIn(float _speed = 0.02f)
     {
+        thePlayer = FindObjectOfType<PlayerManager>();
         StopAllCoroutines();
         StartCoroutine(FadeInCoroutine(_speed));
     }
@@ -82,6 +102,8 @@ public class FadeManager : MonoBehaviour
             black.color = color;
             yield return waitTime;
         }
+        yield return new WaitForSeconds(1f);
+        thePlayer.notMove = false;
     }
 
     public void FlashOut(float _speed = 0.02f)
