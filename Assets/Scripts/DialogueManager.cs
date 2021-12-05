@@ -51,6 +51,8 @@ public class DialogueManager : MonoBehaviour
     //z가 너무 빨리 입력되지 않게 하는 변수
     //아무리 빨라도 텍스트가 나오기 전까진 z키 스킵이 안 됨
     private bool keyActivated = false;
+    //DialogueCoroutine 또는 TextDialogue를 실행할 분기가 되는 변수
+    private bool onlyText = false;
     
 
     // Start is called before the first frame update
@@ -64,12 +66,28 @@ public class DialogueManager : MonoBehaviour
         listDialogueWindows = new List<Sprite>();
         theAudio = FindObjectOfType<AudioManager>();
     }
+    
+    public void ShowText(string[] _sentences)
+    {
+        //대화가 시작되면 talking true로
+        talking = true;
+        onlyText = true;
+
+        for (int i = 0; i < _sentences.Length; i++)
+        {
+            //리스트에 배열이 다 들어감
+            listSentences.Add(_sentences[i]);
+        }
+        //대화가 진행된다는 의미의 코루틴
+        StartCoroutine(StartTextCoroutine());
+    }
 
     //인수로 받은 Dialogue 클래스를 for문으로 넣음
     public void ShowDialogue(Dialogue dialogue)
     {
         //대화가 시작되면 talking true로
         talking = true;
+        onlyText = false;
 
         for (int i = 0; i < dialogue.sentences.Length; i++)
         {
@@ -172,6 +190,25 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    IEnumerator StartTextCoroutine()
+    {
+        //텍스트 출력이 이뤄질 때 활성화
+        keyActivated = true;
+
+        //count번째 문장의 총 길이만큼 i를 반복
+        for (int i = 0; i < listSentences[count].Length; i++)
+        {
+            //한 글자씩 출력
+            text.text += listSentences[count][i];
+            //효과음 재생 조건
+            if(i % 7 == 1)
+            {
+                theAudio.Play(typeSound);
+            }
+            yield return new WaitForSeconds(0.01f);
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -196,7 +233,10 @@ public class DialogueManager : MonoBehaviour
                 else
                 {
                     StopAllCoroutines();
-                    StartCoroutine(StartDialogueCoroutine());
+                    if(onlyText)
+                        StartCoroutine(StartTextCoroutine());
+                    else
+                        StartCoroutine(StartDialogueCoroutine());
                 }
             }
         }
