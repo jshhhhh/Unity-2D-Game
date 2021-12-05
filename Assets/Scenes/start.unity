@@ -6368,6 +6368,13 @@ MonoBehaviour:
   var: []
   switch_name: []
   switches: 
+  itemList:
+  - itemID: 0
+    itemName: 
+    itemDescription: 
+    itemCount: 0
+    itemIcon: {fileID: 0}
+    itemType: 0
 --- !u!4 &656319720
 Transform:
   m_ObjectHideFlags: 0
