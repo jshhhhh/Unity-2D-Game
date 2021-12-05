@@ -109,7 +109,7 @@ public class TransferMap : MonoBehaviour
                 anim_2.SetBool("Open", true);
         }
         //FadeOut이 이뤄지고 1초 대기
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.3f);
 
         //플레이어가 투명하게 만듦
         theOrder.SetTransparent("player");
@@ -120,7 +120,7 @@ public class TransferMap : MonoBehaviour
                 anim_2.SetBool("Open", false);
         }
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.7f);
         //플레이어가 투명하지 않게 만듦
         theOrder.SetUnTransparent("player");
         //이동할 맵의 이름을 저장
