@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
+    static public Inventory instance;
+    private DatabaseManager theDatabase;
+
     private OrderManager theOrder;
     private AudioManager theAudio;
     public string key_sound;
@@ -60,8 +63,11 @@ public class Inventory : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //instace에 자기 자신을 넣어줌
+        instance = this;
         theOrder = FindObjectOfType<OrderManager>();
         theAudio = FindObjectOfType<AudioManager>();
+        theDatabase = FindObjectOfType<DatabaseManager>();
         //리스로 만듦
         inventoryItemList = new List<Item>();
         inventoryTabList = new List<Item>();
@@ -80,6 +86,41 @@ public class Inventory : MonoBehaviour
         inventoryItemList.Add(new Item(30001, "고대 유물의 조각 1", "반으로 쪼개진 고대 유물의 파편", Item.ItemType.Quest));
         inventoryItemList.Add(new Item(30002, "고대 유물의 조각 2", "반으로 쪼개진 고대 유물의 파편", Item.ItemType.Quest));
         inventoryItemList.Add(new Item(30003, "고대 유물", "고대 유적에 잠들어있던 고대의 유물", Item.ItemType.Quest));
+    }
+
+    public void GetAnItem(int _itemID, int _count = 1)
+    {
+        //데이터베이스 아이템 검색
+        for (int i = 0; i < theDatabase.itemList.Count; i++)
+        {
+            //DB의 아이템ID와 파라미터의 ID가 일치하면(데이터베이스에 아이템 발견)
+            if (_itemID == theDatabase.itemList[i].itemID)
+            {
+                //인벤토리의 크기만큼 검색(소지품에 같은 아이템이 있는지 확인)
+                for (int j = 0; j < inventoryItemList.Count; j++)
+                {
+                    //인벤토리에 있는 아이템의 ID와 파라미터의 ID가 일치하면(소지품에 같은 아이디가 있다면)
+                    if (inventoryItemList[j].itemID == _itemID)
+                    {
+                        if (inventoryItemList[j].itemType == Item.ItemType.Use)
+                        {
+                            //갯수만 더해줌
+                            inventoryItemList[j].itemCount += _count;
+                        }
+                        else
+                        {
+                            inventoryItemList.Add(theDatabase.itemList[i]);
+                            return;
+                        }
+                    }
+                }
+                //인벤토리 리스트(소지품)에 아이템 추가
+                inventoryItemList.Add(theDatabase.itemList[i]);
+                return;
+            }
+        }
+        //데이터베이스에 itemID 없음
+        Debug.LogError("데이터베이트에 해당 ID값을 가진 아이템이 존재하지 않습니다.");
     }
 
     //인벤토리 슬롯 초기화
