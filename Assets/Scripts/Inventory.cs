@@ -6,10 +6,13 @@ using UnityEngine.UI;
 public class Inventory : MonoBehaviour
 {
     static public Inventory instance;
-    private DatabaseManager theDatabase;
 
+
+    private DatabaseManager theDatabase;
     private OrderManager theOrder;
     private AudioManager theAudio;
+    private OKOrCancel theOOC;
+
     public string key_sound;
     public string enter_sound;
     public string cancel_sound;
@@ -36,8 +39,8 @@ public class Inventory : MonoBehaviour
     public GameObject go;
     //탭의 패널들
     public GameObject[] selectedTabImages;
-    //
-    public GameObject selection_Window;
+    //선택지를 필요에 따라 활성화, 비활성화
+    public GameObject go_OOC;
 
     //선택된 아이템들을 변수로 확인
     private int selectedItem;
@@ -68,24 +71,14 @@ public class Inventory : MonoBehaviour
         theOrder = FindObjectOfType<OrderManager>();
         theAudio = FindObjectOfType<AudioManager>();
         theDatabase = FindObjectOfType<DatabaseManager>();
+        theOOC = FindObjectOfType<OKOrCancel>();
+
         //리스로 만듦
         inventoryItemList = new List<Item>();
         inventoryTabList = new List<Item>();
         //InventorySlot이 가지고 있는 타입을 slot에 넣음
         //tf(Grid Slot)의 자식 객체들이 들어감
         slots = tf.GetComponentsInChildren<InventorySlot>();
-
-        //아이템 테스트
-        inventoryItemList.Add(new Item(10001, "빨간 포션", "체력을 50 채워주는 기적의 물약", Item.ItemType.Use));
-        inventoryItemList.Add(new Item(10002, "파란 포션", "마나를 15 채워주는 기적의 물약", Item.ItemType.Use));
-        inventoryItemList.Add(new Item(10003, "농축 빨간 포션", "체력을 350 채워주는 기적의 농축 물약", Item.ItemType.Use));
-        inventoryItemList.Add(new Item(10004, "농축 파란 포션", "마나를 80 채워주는 기적의 농축 물약", Item.ItemType.Use));
-        inventoryItemList.Add(new Item(11001, "랜덤 상자", "랜덤으로 포션이 나온다. 낮은 확률로 꽝", Item.ItemType.Use));
-        inventoryItemList.Add(new Item(20001, "짧은 검", "기본적인 용사의 검", Item.ItemType.Equip));
-        inventoryItemList.Add(new Item(21001, "사파이어 반지", "1분에 마나 1을 회복시켜주는 마법 반지", Item.ItemType.Equip));
-        inventoryItemList.Add(new Item(30001, "고대 유물의 조각 1", "반으로 쪼개진 고대 유물의 파편", Item.ItemType.Quest));
-        inventoryItemList.Add(new Item(30002, "고대 유물의 조각 2", "반으로 쪼개진 고대 유물의 파편", Item.ItemType.Quest));
-        inventoryItemList.Add(new Item(30003, "고대 유물", "고대 유적에 잠들어있던 고대의 유물", Item.ItemType.Quest));
     }
 
     public void GetAnItem(int _itemID, int _count = 1)
@@ -421,6 +414,7 @@ public class Inventory : MonoBehaviour
                                 //입력 막음
                                 stopKeyInput = true;
                                 //물약을 마실 거냐? 같은 선택지 호출
+                                StartCoroutine(OOCCoroutine());
                             }
                             //1: 장비
                             else if (selectedTab == 1)
@@ -450,5 +444,40 @@ public class Inventory : MonoBehaviour
                     preventExec = false;
             }
         }
+    }
+
+    //OK or Cancel 코루틴
+    IEnumerator OOCCoroutine()
+    {
+        go_OOC.SetActive(true);
+        theOOC.ShowTwoChoice("사용", "취소");
+        //theOOC.activated가 false가 될 때까지 대기
+        yield return new WaitUntil(() => !theOOC.activated);
+        if (theOOC.GetResult())
+        {
+            for (int i = 0; i < inventoryItemList.Count; i++)
+            {
+                //선택된 탭의 선택된 아이템과 같을 경우
+                if (inventoryItemList[i].itemID == inventoryTabList[selectedItem].itemID)
+                {
+                    //아이템 사용 효과
+                    theDatabase.Useitem(inventoryItemList[i].itemID);
+
+                    //두 개 이상: 개수 감소, 하나: 리스트 제거
+                    if (inventoryItemList[i].itemCount > 1)
+                        inventoryItemList[i].itemCount--;
+                    else
+                        inventoryItemList.RemoveAt(i);
+
+                    //아이템 먹는 소리 출력
+                    // theAudio.Play()
+                    ShowItem();
+                    break;
+                }
+            }
+        }
+
+        stopKeyInput = false;
+        go_OOC.SetActive(false);
     }
 }
