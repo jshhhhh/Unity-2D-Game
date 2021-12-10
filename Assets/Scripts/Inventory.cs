@@ -41,6 +41,7 @@ public class Inventory : MonoBehaviour
     public GameObject[] selectedTabImages;
     //선택지를 필요에 따라 활성화, 비활성화
     public GameObject go_OOC;
+    public GameObject prefab_Floating_Text;
 
     //선택된 아이템들을 변수로 확인
     private int selectedItem;
@@ -88,7 +89,17 @@ public class Inventory : MonoBehaviour
         {
             //DB의 아이템ID와 파라미터의 ID가 일치하면(데이터베이스에 아이템 발견)
             if (_itemID == theDatabase.itemList[i].itemID)
-            {
+            {  
+                //Instantiate: prefab을 생성시킴
+                //생성시킨 prefab을 clone에 넣음
+                //var: 정확한 형식을 모를 때 사용하는 타입
+                //prefab_Floating_Text를 생성해서 PlayerManager(Player)의 위치에 0도의 각도로 생성)
+                var clone = Instantiate(prefab_Floating_Text, PlayerManager.instance.transform.position, Quaternion.Euler(Vector3.zero));
+                //clone의 FloatingText.text.text에 텍스트 대입
+                clone.GetComponent<FloatingText>().text.text = theDatabase.itemList[i].itemName + " "  + _count + "개 획득 +";
+                //clone의 부모 객체 설정(Inventory를 부모 객체로)
+                clone.transform.SetParent(this.transform);
+
                 //인벤토리의 크기만큼 검색(소지품에 같은 아이템이 있는지 확인)
                 for (int j = 0; j < inventoryItemList.Count; j++)
                 {
