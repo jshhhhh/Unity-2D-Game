@@ -114,7 +114,7 @@ public class MovingObject : MonoBehaviour
 
                 currentWalkCount++;
                 //boxcollider가 12만큼 이동하면 다시 원위치시켜줌
-                if(currentWalkCount == 12)
+                if(currentWalkCount == walkCount * 0.5f + 2)
                     boxCollider.offset = Vector2.zero;
                 //0.01초 동안 코루틴 대기
                 yield return new WaitForSeconds(0.01f);
