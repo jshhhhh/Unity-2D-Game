@@ -110,12 +110,14 @@ public class Inventory : MonoBehaviour
                         {
                             //갯수만 더해줌
                             inventoryItemList[j].itemCount += _count;
+                            Debug.Log("갯수만 더해줌");
                         }
                         else
                         {
                             inventoryItemList.Add(theDatabase.itemList[i]);
-                            return;
+                            Debug.Log("리스트 추가");
                         }
+                        return;
                     }
                 }
                 //인벤토리 리스트(소지품)에 아이템 추가

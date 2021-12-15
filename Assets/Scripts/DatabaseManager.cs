@@ -13,6 +13,11 @@ public class DatabaseManager : MonoBehaviour
 
     static public DatabaseManager instance;
 
+    private PlayerStat thePlayerStat;
+
+    public GameObject prefab_Floating_text;
+    public GameObject parent;
+
     #region Singleton
     private void Awake() {
         if(instance != null)
@@ -36,17 +41,45 @@ public class DatabaseManager : MonoBehaviour
 
     //아이템 리스트 생성
     public List<Item> itemList = new List<Item>();
+
+    private void FloatText(int number, string color)
+    {
+        //floating text를 띄울 위치(좌표값)
+        Vector3 vector = thePlayerStat.transform.position;
+        //Player의 머리 위에 띄우기 위해
+        vector.y += 60;
+
+        //prefab clone 생성
+        GameObject clone = Instantiate(prefab_Floating_text, vector, Quaternion.Euler(Vector3.zero));
+        //Floating 안의 text 변수의 text 속성에 dmg를 넣어줌
+        clone.GetComponent<FloatingText>().text.text = number.ToString();
+        if(color == "GREEN")
+            //text color를 red로
+            clone.GetComponent<FloatingText>().text.color = Color.green;
+        else if(color == "BLUE")
+            clone.GetComponent<FloatingText>().text.color = Color.blue;
+        //text의 font size를 25로
+        clone.GetComponent<FloatingText>().text.fontSize = 25;
+        clone.transform.SetParent(parent.transform);
+    }
     
     public void Useitem(int _itemID)
     {
         switch(_itemID)
         {
             case 10001:
-                Debug.Log("Hp가 50 회복되었습니다.");
-                //thePlayer.hp += 50;
+                if(thePlayerStat.hp >= thePlayerStat.currentHP + 50)
+                    thePlayerStat.currentHP += 50;
+                else
+                    thePlayerStat.currentHP = thePlayerStat.hp;
+                FloatText(50, "GREEN");
                 break;
             case 10002:
-                Debug.Log("Mp가 50 회복되었습니다.");
+                if(thePlayerStat.mp >= thePlayerStat.currentMP + 50)
+                    thePlayerStat.currentMP += 15;
+                else
+                    thePlayerStat.currentMP = thePlayerStat.mp;
+                FloatText(50, "BLUE");
                 break;
         }
     }
@@ -54,6 +87,8 @@ public class DatabaseManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        thePlayerStat = FindObjectOfType<PlayerStat>();
+
         //아이템 정보?
         itemList.Add(new Item(10001, "빨간 포션", "체력을 50 채워주는 기적의 물약", Item.ItemType.Use));
         itemList.Add(new Item(10002, "파란 포션", "마나를 15 채워주는 기적의 물약", Item.ItemType.Use));
