@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class SlimeController : MovingObject
 {
-    //슬라임 공격력
-    public int atk;
     //공격 유예
     public float attackDelay;
 
@@ -82,7 +80,7 @@ public class SlimeController : MovingObject
         AudioManager.instance.Play(atkSound);
         //대기 후에도 NearPlayer()가 true라면 데미지를 입힘(없다면 공격모션만)
         if(NearPlayer())
-            PlayerStat.instance.Hit(atk);
+            PlayerStat.instance.Hit(GetComponent<EnemyStat>().atk);
     }
 
     private bool NearPlayer()

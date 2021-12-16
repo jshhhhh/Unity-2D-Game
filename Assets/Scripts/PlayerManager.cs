@@ -26,6 +26,7 @@ public class PlayerManager : MovingObject
     public string walkSound_2;
     public string walkSound_3;
     public string walkSound_4;
+    public string atkSound;
 
     private AudioManager theAudio;
 
@@ -44,6 +45,9 @@ public class PlayerManager : MovingObject
 
     //캐릭터가 대사할 때 움직일 수 없게 하는 변수
     public bool notMove = false;
+    private bool attacking = false;
+    public float attackDelay;
+    private float currentAttackDelay;
 
     // Start is called before the first frame update
     void Start()
@@ -75,7 +79,7 @@ public class PlayerManager : MovingObject
     //코루틴
     IEnumerator MoveCoroutine()
     {
-        while (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0 && !notMove)
+        while (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0 && !notMove && !attacking)
         {
             //LeftShift 누르면 달리기 구현
             if (Input.GetKey(KeyCode.LeftShift))
@@ -193,7 +197,7 @@ public class PlayerManager : MovingObject
     // Update is called once per frame
     void Update()
     {
-        if (canMove && !notMove)
+        if (canMove && !notMove && !attacking)
         {
             //Horizontal: 우 방향키는 1, 좌 방향키는 -1 리턴. Vertical: 상 방향키는 1, 하 방향키는 -1 리턴
             if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
@@ -201,6 +205,28 @@ public class PlayerManager : MovingObject
                 canMove = false;
                 //코루틴 실행 명령어
                 StartCoroutine(MoveCoroutine());
+            }
+        }
+
+        if(!notMove && !attacking)
+        {
+            //공격키(스페이스바) 입력
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                AudioManager.instance.Play(atkSound);
+                currentAttackDelay = attackDelay;
+                attacking = true;
+                animator.SetBool("Attacking", true);
+            }
+        }
+
+        if(attacking)
+        {
+            currentAttackDelay -= Time.deltaTime;
+            if(currentAttackDelay <= 0)
+            {
+                animator.SetBool("Attacking", false);
+                attacking = false;
             }
         }
     }

@@ -6684,6 +6684,131 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &427948583
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 427948584}
+  - component: {fileID: 427948587}
+  - component: {fileID: 427948586}
+  - component: {fileID: 427948585}
+  m_Layer: 0
+  m_Name: Attack_Small
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &427948584
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 427948583}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1601683117}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &427948585
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 427948583}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 16, y: 22}
+    newSize: {x: 0.16, y: 0.22}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 16, y: 22}
+  m_EdgeRadius: 0
+--- !u!114 &427948586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 427948583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42f843c7549233d4ebad2c6bb66927f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab_Floating_text: {fileID: 7935752997903639430, guid: 189d53e47658fbf498e265f68cd25c01, type: 3}
+  parent: {fileID: 1846821675}
+  atkSound: blow_sound
+--- !u!212 &427948587
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 427948583}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 1413303151
+  m_SortingLayer: 3
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 84be934caf8a97d4689512be0b950c26, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 0.16, y: 0.22}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &433721866
 GameObject:
   m_ObjectHideFlags: 0
@@ -7015,9 +7140,10 @@ GameObject:
   - component: {fileID: 540807521}
   - component: {fileID: 540807523}
   - component: {fileID: 540807522}
+  - component: {fileID: 540807524}
   m_Layer: 6
   m_Name: Strong Slime
-  m_TagString: Untagged
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7152,10 +7278,26 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 64
-  atk: 8
   attackDelay: 0.6
   inter_MoveWaitTime: 2.5
   atkSound: slime_sound
+--- !u!114 &540807524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 540807518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d347b079692147f47a32b7a6b12f8f78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 25
+  currentHP: 0
+  atk: 7
+  def: 2
+  exp: 100
 --- !u!1 &547010816
 GameObject:
   m_ObjectHideFlags: 0
@@ -7639,9 +7781,10 @@ GameObject:
   - component: {fileID: 642848584}
   - component: {fileID: 642848583}
   - component: {fileID: 642848582}
+  - component: {fileID: 642848587}
   m_Layer: 6
   m_Name: Slime (1)
-  m_TagString: Untagged
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7692,7 +7835,6 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 64
-  atk: 5
   attackDelay: 0.6
   inter_MoveWaitTime: 4
   atkSound: slime_sound
@@ -7780,6 +7922,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &642848587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 642848581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d347b079692147f47a32b7a6b12f8f78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 15
+  currentHP: 0
+  atk: 5
+  def: 1
+  exp: 10
 --- !u!1 &656319718
 GameObject:
   m_ObjectHideFlags: 0
@@ -8401,9 +8560,10 @@ GameObject:
   - component: {fileID: 892986064}
   - component: {fileID: 892986067}
   - component: {fileID: 892986068}
+  - component: {fileID: 892986069}
   m_Layer: 6
   m_Name: Slime
-  m_TagString: Untagged
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8512,7 +8672,6 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 64
-  atk: 5
   attackDelay: 0.6
   inter_MoveWaitTime: 3
   atkSound: slime_sound
@@ -8542,6 +8701,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 48, y: 48}
   m_EdgeRadius: 0
+--- !u!114 &892986069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 892986063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d347b079692147f47a32b7a6b12f8f78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 15
+  currentHP: 0
+  atk: 5
+  def: 1
+  exp: 10
 --- !u!1 &948984744
 GameObject:
   m_ObjectHideFlags: 0
@@ -10615,6 +10791,10 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: b9eff218e132a4e76be78840eca96fb2, type: 3}
     Volume: 0.3
     loop: 0
+  - name: blow_sound
+    clip: {fileID: 8300000, guid: fe0b1f9aeb45b41b089175aeeabd5d95, type: 3}
+    Volume: 0.3
+    loop: 0
 --- !u!4 &1454206423
 Transform:
   m_ObjectHideFlags: 0
@@ -10627,7 +10807,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1458057932
 GameObject:
@@ -12145,9 +12325,11 @@ MonoBehaviour:
   walkSound_2: footsteps 2
   walkSound_3: footsteps 3
   walkSound_4: footsteps 4
+  atkSound: blow_sound
   theOrder: {fileID: 0}
   runSpeed: 2.4
   notMove: 0
+  attackDelay: 0.4
 --- !u!212 &1601683116
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -12209,9 +12391,10 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 288, y: -216, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 427948584}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1601683118
 Animator:
@@ -12292,13 +12475,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character_Lv: 1
-  needEXP: 
+  needEXP: 000000000a0000003200000064000000c8000000f4010000e8030000d00700008813000010270000
   currentEXP: 0
   hp: 50
   currentHP: 0
   mp: 0
   currentMP: 0
-  atk: 0
+  atk: 5
   def: 0
   dmgSound: damage_sound
   prefab_Floating_text: {fileID: 7935752997903639430, guid: 189d53e47658fbf498e265f68cd25c01, type: 3}
