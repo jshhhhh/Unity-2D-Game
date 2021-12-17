@@ -6,6 +6,7 @@ public class HurtEnemy : MonoBehaviour
 {
     public GameObject prefab_Floating_text;
     public GameObject parent;
+    public GameObject effect;
 
     public string atkSound;
 
@@ -26,6 +27,9 @@ public class HurtEnemy : MonoBehaviour
 
             //충돌한 객체(몬스터) 위에 prefab을 띄움
             Vector3 vector = collision.transform.position;
+
+            Instantiate(effect, vector, Quaternion.Euler(Vector3.zero));
+            
             vector.y += 60;
 
             //prefab clone 생성

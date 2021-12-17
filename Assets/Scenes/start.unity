@@ -6757,6 +6757,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab_Floating_text: {fileID: 7935752997903639430, guid: 189d53e47658fbf498e265f68cd25c01, type: 3}
   parent: {fileID: 1846821675}
+  effect: {fileID: 4470361865218762657, guid: e09e379d608f7044cbb5284d414e43b7, type: 3}
   atkSound: blow_sound
 --- !u!212 &427948587
 SpriteRenderer:
