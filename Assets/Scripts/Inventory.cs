@@ -12,6 +12,7 @@ public class Inventory : MonoBehaviour
     private OrderManager theOrder;
     private AudioManager theAudio;
     private OKOrCancel theOOC;
+    private Equipment theEquip;
 
     public string key_sound;
     public string enter_sound;
@@ -73,6 +74,7 @@ public class Inventory : MonoBehaviour
         theAudio = FindObjectOfType<AudioManager>();
         theDatabase = FindObjectOfType<DatabaseManager>();
         theOOC = FindObjectOfType<OKOrCancel>();
+        theEquip = FindObjectOfType<Equipment>();
 
         //리스로 만듦
         inventoryItemList = new List<Item>();
@@ -82,6 +84,12 @@ public class Inventory : MonoBehaviour
         slots = tf.GetComponentsInChildren<InventorySlot>();
     }
 
+    //inventoryItemList에 접근하기 위한 함수
+    public void EquipToInventory(Item _item)
+    {
+        inventoryItemList.Add(_item);
+    }
+
     public void GetAnItem(int _itemID, int _count = 1)
     {
         //데이터베이스 아이템 검색
@@ -89,14 +97,14 @@ public class Inventory : MonoBehaviour
         {
             //DB의 아이템ID와 파라미터의 ID가 일치하면(데이터베이스에 아이템 발견)
             if (_itemID == theDatabase.itemList[i].itemID)
-            {  
+            {
                 //Instantiate: prefab을 생성시킴
                 //생성시킨 prefab을 clone에 넣음
                 //var: 정확한 형식을 모를 때 사용하는 타입
                 //prefab_Floating_Text를 생성해서 PlayerManager(Player)의 위치에 0도의 각도로 생성)
                 var clone = Instantiate(prefab_Floating_Text, PlayerManager.instance.transform.position, Quaternion.Euler(Vector3.zero));
                 //clone의 FloatingText.text.text에 텍스트 대입
-                clone.GetComponent<FloatingText>().text.text = theDatabase.itemList[i].itemName + " "  + _count + "개 획득 +";
+                clone.GetComponent<FloatingText>().text.text = theDatabase.itemList[i].itemName + " " + _count + "개 획득 +";
                 //clone의 부모 객체 설정(Inventory를 부모 객체로)
                 clone.transform.SetParent(this.transform);
 
@@ -423,16 +431,14 @@ public class Inventory : MonoBehaviour
                             //0: 소모품
                             if (selectedTab == 0)
                             {
-                                theAudio.Play(enter_sound);
-                                //입력 막음
-                                stopKeyInput = true;
                                 //물약을 마실 거냐? 같은 선택지 호출
-                                StartCoroutine(OOCCoroutine());
+                                StartCoroutine(OOCCoroutine("사용", "취소"));
                             }
                             //1: 장비
                             else if (selectedTab == 1)
                             {
-                                //장비 장착
+                                //물약을 마실 거냐? 같은 선택지 호출
+                                StartCoroutine(OOCCoroutine("장착", "취소"));
                             }
                             //비프음 출력
                             else
@@ -460,11 +466,16 @@ public class Inventory : MonoBehaviour
     }
 
     //OK or Cancel 코루틴
-    IEnumerator OOCCoroutine()
+    IEnumerator OOCCoroutine(string _up, string _down)
     {
+        theAudio.Play(enter_sound);
+        //입력 막음
+        stopKeyInput = true;
+
         go_OOC.SetActive(true);
-        theOOC.ShowTwoChoice("사용", "취소");
+        theOOC.ShowTwoChoice(_up, _down);
         //theOOC.activated가 false가 될 때까지 대기
+        //키입력 대기
         yield return new WaitUntil(() => !theOOC.activated);
         if (theOOC.GetResult())
         {
@@ -473,23 +484,35 @@ public class Inventory : MonoBehaviour
                 //선택된 탭의 선택된 아이템과 같을 경우
                 if (inventoryItemList[i].itemID == inventoryTabList[selectedItem].itemID)
                 {
-                    //아이템 사용 효과
-                    theDatabase.Useitem(inventoryItemList[i].itemID);
+                    //소모품일 경우
+                    if (selectedTab == 0)
+                    {
+                        //아이템 사용 효과
+                        theDatabase.Useitem(inventoryItemList[i].itemID);
 
-                    //두 개 이상: 개수 감소, 하나: 리스트 제거
-                    if (inventoryItemList[i].itemCount > 1)
-                        inventoryItemList[i].itemCount--;
-                    else
+                        //두 개 이상: 개수 감소, 하나: 리스트 제거
+                        if (inventoryItemList[i].itemCount > 1)
+                            inventoryItemList[i].itemCount--;
+                        else
+                            inventoryItemList.RemoveAt(i);
+
+                        //아이템 먹는 소리 출력
+                        // theAudio.Play()
+                        ShowItem();
+                        break;
+                    }
+                    else if(selectedTab == 1)
+                    {
+                        //장착
+                        theEquip.EquipItem(inventoryItemList[i]);
+                        //인벤토리에서 지움
                         inventoryItemList.RemoveAt(i);
-
-                    //아이템 먹는 소리 출력
-                    // theAudio.Play()
-                    ShowItem();
-                    break;
+                        ShowItem();
+                        break;
+                    }
                 }
             }
         }
-
         stopKeyInput = false;
         go_OOC.SetActive(false);
     }
