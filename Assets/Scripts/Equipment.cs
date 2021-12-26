@@ -27,6 +27,8 @@ public class Equipment : MonoBehaviour
 
     private int added_atk, added_def, added_hpr, added_mpr;
 
+
+    public GameObject equipWeapon;
     //장비창 키고 끔
     public GameObject go;
     public GameObject go_OOC;
@@ -95,6 +97,9 @@ public class Equipment : MonoBehaviour
             //무기
             case "200":
                 EquipItemCheck(WEAPON, _item);
+                equipWeapon.SetActive(true);
+                //스프라이트를 인수로 넘어온 아이템 아이콘으로 교체
+                equipWeapon.GetComponent<SpriteRenderer>().sprite = _item.itemIcon;
                 break;
             //방패
             case "201":
@@ -124,6 +129,8 @@ public class Equipment : MonoBehaviour
         {
             //자기가 차고 있던 장비를 아이템 창에 넣음
             theInven.EquipToInventory(equipItemList[_count]);
+            //장착 아이템의 능력치만큼 감소
+            TakeOffEffect(equipItemList[_count]);
             //아이템 창에서 그 아이템을 장착
             equipItemList[_count] = _item;
         }
@@ -304,6 +311,9 @@ public class Equipment : MonoBehaviour
             theInven.EquipToInventory(equipItemList[selectedSlot]);
             //차고 있던 장비의 능력치만큼 감소
             TakeOffEffect(equipItemList[selectedSlot]);
+            //무기를 벗을 경우에만 무기 이미지를 꺼줌
+            if(selectedSlot == WEAPON)
+                equipWeapon.SetActive(false);
             ShowTxT();
             //선택된 장착 슬롯에 빈 껍데기를 넣음(없애버리면 참조 문제가 생기기 때문에 X)
             equipItemList[selectedSlot] = new Item(0, "", "", Item.ItemType.Equip);
