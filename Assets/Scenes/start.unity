@@ -8892,6 +8892,10 @@ MonoBehaviour:
     itemCount: 0
     itemIcon: {fileID: 0}
     itemType: 0
+    atk: 0
+    def: 0
+    recover_hp: 0
+    recover_mp: 0
 --- !u!4 &656319720
 Transform:
   m_ObjectHideFlags: 0
@@ -11889,9 +11893,21 @@ MonoBehaviour:
   open_sound: ok
   close_sound: cancel_sound
   takeoff_sound: switch3_sound
+  equip_sound: equip1
   go: {fileID: 1810788745}
   go_OOC: {fileID: 1562316951}
-  text: []
+  text:
+  - {fileID: 1019856336}
+  - {fileID: 903634078}
+  - {fileID: 906122515}
+  - {fileID: 156713768}
+  - {fileID: 22715026}
+  - {fileID: 1761010774}
+  - {fileID: 231772161}
+  - {fileID: 475514898}
+  - {fileID: 1717289782}
+  - {fileID: 443515188}
+  - {fileID: 890659927}
   img_slots:
   - {fileID: 1193082647}
   - {fileID: 731439029}
@@ -11913,72 +11929,120 @@ MonoBehaviour:
     itemCount: 0
     itemIcon: {fileID: 0}
     itemType: 0
+    atk: 0
+    def: 0
+    recover_hp: 0
+    recover_mp: 0
   - itemID: 0
     itemName: 
     itemDescription: 
     itemCount: 0
     itemIcon: {fileID: 0}
     itemType: 0
+    atk: 0
+    def: 0
+    recover_hp: 0
+    recover_mp: 0
   - itemID: 0
     itemName: 
     itemDescription: 
     itemCount: 0
     itemIcon: {fileID: 0}
     itemType: 0
+    atk: 0
+    def: 0
+    recover_hp: 0
+    recover_mp: 0
   - itemID: 0
     itemName: 
     itemDescription: 
     itemCount: 0
     itemIcon: {fileID: 0}
     itemType: 0
+    atk: 0
+    def: 0
+    recover_hp: 0
+    recover_mp: 0
   - itemID: 0
     itemName: 
     itemDescription: 
     itemCount: 0
     itemIcon: {fileID: 0}
     itemType: 0
+    atk: 0
+    def: 0
+    recover_hp: 0
+    recover_mp: 0
   - itemID: 0
     itemName: 
     itemDescription: 
     itemCount: 0
     itemIcon: {fileID: 0}
     itemType: 0
+    atk: 0
+    def: 0
+    recover_hp: 0
+    recover_mp: 0
   - itemID: 0
     itemName: 
     itemDescription: 
     itemCount: 0
     itemIcon: {fileID: 0}
     itemType: 0
+    atk: 0
+    def: 0
+    recover_hp: 0
+    recover_mp: 0
   - itemID: 0
     itemName: 
     itemDescription: 
     itemCount: 0
     itemIcon: {fileID: 0}
     itemType: 0
+    atk: 0
+    def: 0
+    recover_hp: 0
+    recover_mp: 0
   - itemID: 0
     itemName: 
     itemDescription: 
     itemCount: 0
     itemIcon: {fileID: 0}
     itemType: 0
+    atk: 0
+    def: 0
+    recover_hp: 0
+    recover_mp: 0
   - itemID: 0
     itemName: 
     itemDescription: 
     itemCount: 0
     itemIcon: {fileID: 0}
     itemType: 0
+    atk: 0
+    def: 0
+    recover_hp: 0
+    recover_mp: 0
   - itemID: 0
     itemName: 
     itemDescription: 
     itemCount: 0
     itemIcon: {fileID: 0}
     itemType: 0
+    atk: 0
+    def: 0
+    recover_hp: 0
+    recover_mp: 0
   - itemID: 0
     itemName: 
     itemDescription: 
     itemCount: 0
     itemIcon: {fileID: 0}
     itemType: 0
+    atk: 0
+    def: 0
+    recover_hp: 0
+    recover_mp: 0
   activated: 0
 --- !u!1 &1265516558
 GameObject:
@@ -12771,6 +12835,10 @@ MonoBehaviour:
     loop: 0
   - name: switch3_sound
     clip: {fileID: 8300000, guid: 73eba3fcf5a6d1645af103fc0d7258b9, type: 3}
+    Volume: 0.3
+    loop: 0
+  - name: equip1
+    clip: {fileID: 8300000, guid: c0ac8cb41ea41403c8ba98147d940a75, type: 3}
     Volume: 0.3
     loop: 0
 --- !u!4 &1454206423
@@ -14536,7 +14604,10 @@ MonoBehaviour:
   currentMP: 0
   atk: 5
   def: 0
+  recover_hp: 0
+  recover_mp: 0
   dmgSound: damage_sound
+  time: 0
   prefab_Floating_text: {fileID: 7935752997903639430, guid: 189d53e47658fbf498e265f68cd25c01, type: 3}
   parent: {fileID: 1846821675}
 --- !u!1 &1621126348

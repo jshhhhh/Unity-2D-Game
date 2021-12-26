@@ -27,8 +27,14 @@ public class Item
         ETC
     }
 
+    //예시로 몇 개의 능력치만
+    public int atk;
+    public int def;
+    public int recover_hp;
+    public int recover_mp;
+
     //생성자(호출되는 순간 생성자를 통해 값을 채움)
-    public Item(int _itemID, string _itemName, string _itemDes, ItemType _itemType, int _itemCount = 1)
+    public Item(int _itemID, string _itemName, string _itemDes, ItemType _itemType, int _atk = 0, int _def = 0, int _recover_hp = 0, int _recover_mp = 0, int _itemCount = 1)
     {
         itemID = _itemID;
         itemName = _itemName;
@@ -40,6 +46,11 @@ public class Item
         //typeof(Sprite): Sprite로 가져옴(명시적 변환)
         //as Sprite: 실제로 변환
         itemIcon = Resources.Load("ItemIcon/" + _itemID.ToString(), typeof(Sprite)) as Sprite;
+
+        atk = _atk;
+        def = _def;
+        recover_hp = _recover_hp;
+        recover_mp = _recover_mp;
     }
 
     // Start is called before the first frame update

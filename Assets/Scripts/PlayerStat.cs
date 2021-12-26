@@ -19,7 +19,14 @@ public class PlayerStat : MonoBehaviour
     public int atk;
     public int def;
 
+    //1분 단위이지만 효과를 확인하기 위해 1초로 구현
+    public int recover_hp;
+    public int recover_mp;
+
     public string dmgSound;
+
+    public float time;
+    private float current_time;
 
     //Floating Text prefab
     public GameObject prefab_Floating_text;
@@ -31,6 +38,7 @@ public class PlayerStat : MonoBehaviour
     {
         instance = this;
         currentHP = hp;
+        current_time = time;
     }
 
     public void Hit(int _enemyAtk)
@@ -95,6 +103,7 @@ public class PlayerStat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //레벨업
         if(currentEXP >= needEXP[character_Lv])
         {
             character_Lv++;
@@ -105,6 +114,21 @@ public class PlayerStat : MonoBehaviour
             currentMP = mp;
             atk++;
             def++;
+        }
+
+        //일정 시간이 되면 회복 알고리즘
+        current_time -= Time.deltaTime;
+
+        if(current_time <= 0)
+        {
+            if(recover_hp > 0)
+            {
+                if(currentHP + recover_hp <= hp)
+                    currentHP += recover_hp;
+                else
+                    currentHP = hp;
+            }
+            current_time = time;
         }
     }
 }

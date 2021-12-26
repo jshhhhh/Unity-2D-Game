@@ -17,10 +17,15 @@ public class Equipment : MonoBehaviour
     public string open_sound;
     public string close_sound;
     public string takeoff_sound;
+    public string equip_sound;
 
     //const: 변수를 상수처럼 만듦(다른 곳에서 값을 바꿀 수 없음)
     //숫자 대신 변수를 대입
     private const int WEAPON = 0, SHILD = 1, AMULET = 2, LEFT_RING = 3, RIGHT_RING = 4, HELMET = 5, ARMOR = 6, LEFT_GLOVE = 7, RIGHT_GLOVE = 8, BELT = 9, LEFT_BOOTS = 10, RIGHT_BOOTS = 11;
+
+    private const int ATK = 0, DEF = 1, HPR = 6, MPR = 7;
+
+    private int added_atk, added_def, added_hpr, added_mpr;
 
     //장비창 키고 끔
     public GameObject go;
@@ -52,6 +57,30 @@ public class Equipment : MonoBehaviour
         thePlayerStat = FindObjectOfType<PlayerStat>();
         theOOC = FindObjectOfType<OKOrCancel>();
         theEquip = FindObjectOfType<Equipment>();
+    }
+
+    //스탯을 텍스트로 표기
+    public void ShowTxT()
+    {
+        if(added_atk == 0)
+            text[ATK].text = thePlayerStat.atk.ToString();
+        else
+            text[ATK].text = thePlayerStat.atk.ToString() + "(+" + added_atk + ")";
+
+        if(added_def == 0)
+            text[DEF].text = thePlayerStat.def.ToString();
+        else
+            text[DEF].text = thePlayerStat.atk.ToString() + "(+" + added_def + ")";
+
+        if(added_hpr == 0)
+            text[HPR].text = thePlayerStat.recover_hp.ToString();
+        else
+            text[HPR].text = thePlayerStat.recover_hp.ToString() + "(+" + added_hpr + ")";
+
+        if(added_mpr == 0)
+            text[MPR].text = thePlayerStat.recover_mp.ToString();
+        else
+            text[MPR].text = thePlayerStat.recover_mp.ToString() + "(+" + added_mpr + ")";
     }
 
     public void EquipItem(Item _item)
@@ -98,6 +127,11 @@ public class Equipment : MonoBehaviour
             //아이템 창에서 그 아이템을 장착
             equipItemList[_count] = _item;
         }
+
+        //장착한 아이템의 효과가 스탯에 반영
+        EquipEffect(_item);
+        ShowTxT();
+        theAudio.Play(equip_sound);
     }
 
     public void SelectedSlot()
@@ -138,6 +172,36 @@ public class Equipment : MonoBehaviour
         }
     }
 
+    //장비 -> 능력치만큼 상승
+    private void EquipEffect(Item _item)
+    {
+        thePlayerStat.atk += _item.atk;
+        thePlayerStat.def += _item.def;
+        thePlayerStat.recover_hp += _item.recover_hp;
+        thePlayerStat.recover_mp += _item.recover_mp;
+
+        added_atk += _item.atk;
+        added_def += _item.def;
+        added_hpr += _item.recover_hp;
+        added_mpr += _item.recover_mp;
+    }
+
+    //장비 해제 -> 올랐던 능력치만큼 하락
+    private void TakeOffEffect(Item _item)
+    {
+        thePlayerStat.atk -= _item.atk;
+        thePlayerStat.def -= _item.def;
+        thePlayerStat.recover_hp -= _item.recover_hp;
+        thePlayerStat.recover_mp -= _item.recover_mp;
+        //장착 해제했을 때 현재 체력보다 최대 체력이 높아지는 현상 방지
+        //currentHP = 최대 체력;
+
+        added_atk -= _item.atk;
+        added_def -= _item.def;
+        added_hpr -= _item.recover_hp;
+        added_mpr -= _item.recover_mp;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -157,6 +221,7 @@ public class Equipment : MonoBehaviour
                     SelectedSlot();
                     ClearEquip();
                     ShowEquip();
+                    ShowTxT();
                 }
                 else
                 {
@@ -237,6 +302,9 @@ public class Equipment : MonoBehaviour
         {
             //선택된 장착 아이템을 인벤토리 아이템 리스트에 추가
             theInven.EquipToInventory(equipItemList[selectedSlot]);
+            //차고 있던 장비의 능력치만큼 감소
+            TakeOffEffect(equipItemList[selectedSlot]);
+            ShowTxT();
             //선택된 장착 슬롯에 빈 껍데기를 넣음(없애버리면 참조 문제가 생기기 때문에 X)
             equipItemList[selectedSlot] = new Item(0, "", "", Item.ItemType.Equip);
             theAudio.Play(takeoff_sound);
