@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerStat : MonoBehaviour
 {
@@ -33,11 +34,15 @@ public class PlayerStat : MonoBehaviour
     //prefab의 부모 객체(Canvas)
     public GameObject parent;
 
+    public Slider hpSlider;
+    public Slider mpSlider;
+
     // Start is called before the first frame update
     void Start()
     {
         instance = this;
         currentHP = hp;
+        currentMP = mp;
         current_time = time;
     }
 
@@ -103,6 +108,12 @@ public class PlayerStat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        hpSlider.maxValue = hp;
+        mpSlider.maxValue = mp;
+
+        hpSlider.value = currentHP;
+        mpSlider.value = currentMP;
+        
         //레벨업
         if(currentEXP >= needEXP[character_Lv])
         {
