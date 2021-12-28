@@ -22,6 +22,8 @@ public class SlimeController : MovingObject
     //base.Move()(MovingObject로부터 상속)의 string dir 변수에 대입
     private string direction;
 
+    public GameObject healthBar;
+
 
     // Start is called before the first frame update
     void Start()
@@ -68,6 +70,11 @@ public class SlimeController : MovingObject
         else
             flip.x = 1f;
         this.transform.localScale = flip;
+
+        //슬라임에 따라 체력바가 같이 뒤집어지므로
+        //체력바를 한 번 더 뒤집어서 원상태로 만듦
+        healthBar.transform.localScale = flip;
+
         //트리거 작동
         animator.SetTrigger("Attack");
         StartCoroutine(WaitCoroutine());
