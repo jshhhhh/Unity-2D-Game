@@ -5,8 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class TransferScene : MonoBehaviour
 {
-    //이동할 맵의 이름
+    //이동할 씬, 맵의 이름
     public string transferMapName;
+    public string transferSceneName;
 
     //Player 스크립트를 thePlayer 변수로 불러옴
     private PlayerManager thePlayer;
@@ -34,9 +35,10 @@ public class TransferScene : MonoBehaviour
         //FadeOut이 이뤄지고 1초 대기
         yield return new WaitForSeconds(1f);
         //이동할 맵의 이름을 저장
+        thePlayer.currentSceneName = transferSceneName;
         thePlayer.currentMapName = transferMapName;
         //씬 불러옴
-        SceneManager.LoadScene(transferMapName);
+        SceneManager.LoadScene(transferSceneName);
         //FadeIn 함수에서 PlayerManager의 notMove를 false로
         theFade.FadeIn();
     }

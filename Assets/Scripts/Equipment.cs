@@ -25,8 +25,8 @@ public class Equipment : MonoBehaviour
 
     private const int ATK = 0, DEF = 1, HPR = 6, MPR = 7;
 
-    private int added_atk, added_def, added_hpr, added_mpr;
-
+    //장비로 추가된 added 스탯을 빼주면 원래 Player의 스탯이 계산됨(public 이유)
+    public int added_atk, added_def, added_hpr, added_mpr;
 
     public GameObject equipWeapon;
     //장비창 키고 끔

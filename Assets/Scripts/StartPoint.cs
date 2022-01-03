@@ -18,9 +18,8 @@ public class StartPoint : MonoBehaviour
         theCamera = FindObjectOfType<CameraManager>();
         thePlayer = FindObjectOfType<PlayerManager>();
 
-        if(startPoint == thePlayer.currentMapName)
+        if(startPoint == thePlayer.currentMapName && thePlayer.canStartPointMove)
         {
-            
             //카메라 순간이동
             theCamera.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, theCamera.transform.position.z);
             //플레이어의 위치를 스타트 위치로 이동시킴

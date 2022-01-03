@@ -154,6 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transferMapName: start
+  transferSceneName: start
 --- !u!61 &146685612
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -523,6 +524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67de9dc22b7f58848804b138ef34d687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boundName: 
 --- !u!61 &2097741396
 BoxCollider2D:
   m_ObjectHideFlags: 0

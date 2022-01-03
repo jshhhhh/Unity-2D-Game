@@ -5,7 +5,8 @@ using UnityEngine;
 public class Bound : MonoBehaviour
 {
     private BoxCollider2D bound;
-
+    //bound의 이름 기록 목적
+    public string boundName;
     private CameraManager theCamera;
 
     // Start is called before the first frame update
@@ -18,9 +19,12 @@ public class Bound : MonoBehaviour
         theCamera.SetBound(bound);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetBound()
     {
-        
+        //카메라가 있을 경우
+        if(theCamera != null)
+        {
+            theCamera.SetBound(bound);
+        }
     }
 }

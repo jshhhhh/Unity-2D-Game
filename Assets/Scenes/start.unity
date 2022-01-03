@@ -2396,7 +2396,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c63edc11a1469f342ab379b35a6fb681, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transferMapName: start
+  transferMapName: school front
   target: {fileID: 1525222141}
   targetBound: {fileID: 774514560}
   anim_1: {fileID: 0}
@@ -9977,6 +9977,7 @@ GameObject:
   m_Component:
   - component: {fileID: 774514561}
   - component: {fileID: 774514560}
+  - component: {fileID: 774514562}
   m_Layer: 0
   m_Name: B bound
   m_TagString: Untagged
@@ -10024,6 +10025,19 @@ Transform:
   m_Father: {fileID: 1508958799}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &774514562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774514559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67de9dc22b7f58848804b138ef34d687, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boundName: school front
 --- !u!1 &791293296
 GameObject:
   m_ObjectHideFlags: 0
@@ -12960,6 +12974,10 @@ MonoBehaviour:
   close_sound: cancel_sound
   takeoff_sound: switch3_sound
   equip_sound: equip1
+  added_atk: 0
+  added_def: 0
+  added_hpr: 0
+  added_mpr: 0
   equipWeapon: {fileID: 2075243531}
   go: {fileID: 1810788745}
   go_OOC: {fileID: 1562316951}
@@ -13263,6 +13281,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transferMapName: school front
+  transferSceneName: school front
 --- !u!4 &1265516561
 Transform:
   m_ObjectHideFlags: 0
@@ -15935,6 +15954,8 @@ GameObject:
   - component: {fileID: 1601683119}
   - component: {fileID: 1601683120}
   - component: {fileID: 1601683121}
+  - component: {fileID: 1601683123}
+  - component: {fileID: 1601683122}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -15962,16 +15983,17 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 64
-  currentMapName: 
+  currentMapName: start
+  currentSceneName: start
   walkSound_1: footsteps 1
   walkSound_2: footsteps 2
   walkSound_3: footsteps 3
   walkSound_4: footsteps 4
   atkSound: blow_sound
-  theOrder: {fileID: 0}
   runSpeed: 2.4
   notMove: 0
   attackDelay: 0.4
+  canStartPointMove: 0
 --- !u!212 &1601683116
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -16134,6 +16156,57 @@ MonoBehaviour:
   parent: {fileID: 1846821675}
   hpSlider: {fileID: 681117526}
   mpSlider: {fileID: 1943133136}
+--- !u!114 &1601683122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1601683114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ed39e2d2c3d5ec45b48d21ca67ac2a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    playerX: 0
+    playerY: 0
+    playerZ: 0
+    playerLv: 0
+    playerHP: 0
+    playerMP: 0
+    playerCurrentHP: 0
+    playerCurrentMP: 0
+    playerCurrentEXP: 0
+    playerHPR: 0
+    playerMPR: 0
+    playerATK: 0
+    playerDEF: 0
+    added_atk: 0
+    added_def: 0
+    added_hpr: 0
+    added_mpr: 0
+    playerItemInventory: 
+    playerItemInventoryCount: 
+    playerEquipItem: 
+    mapName: 
+    sceneName: 
+    swList: 
+    swNameList: []
+    varNameList: []
+    varNumberList: []
+--- !u!114 &1601683123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1601683114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de26c545bff786446a5e8a514ed0dd0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1602237158
 GameObject:
   m_ObjectHideFlags: 0
@@ -18614,6 +18687,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1982663353}
   - component: {fileID: 1982663352}
+  - component: {fileID: 1982663354}
   m_Layer: 0
   m_Name: A bound
   m_TagString: Untagged
@@ -18661,6 +18735,19 @@ Transform:
   m_Father: {fileID: 226590475886437994}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1982663354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1982663351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67de9dc22b7f58848804b138ef34d687, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boundName: start
 --- !u!1 &1990404723
 GameObject:
   m_ObjectHideFlags: 0

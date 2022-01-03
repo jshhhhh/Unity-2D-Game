@@ -84,6 +84,18 @@ public class Inventory : MonoBehaviour
         slots = tf.GetComponentsInChildren<InventorySlot>();
     }
 
+    //호출하면 inventoryItemList(가지고 있는 아이템 리스트) 반환
+    public List<Item> SaveItem()
+    {
+        return inventoryItemList;
+    }
+
+    public void LoadItem(List<Item> _itemList)
+    {
+        //로드했을 때 저장해뒀던 데이터를 덮어씌움
+        inventoryItemList = _itemList;
+    }
+
     //inventoryItemList에 접근하기 위한 함수
     public void EquipToInventory(Item _item)
     {

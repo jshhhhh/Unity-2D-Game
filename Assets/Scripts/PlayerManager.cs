@@ -10,6 +10,7 @@ public class PlayerManager : MovingObject
 
     //trasferMap 스크립트에 있는 transferMapName 변수의 값을 저장
     public string currentMapName;
+    public string currentSceneName;
 
     /*
     //오디오클립을 일일이 추가하는 방법
@@ -29,8 +30,9 @@ public class PlayerManager : MovingObject
     public string atkSound;
 
     private AudioManager theAudio;
+    private SaveNLoad theSaveNLoad;
 
-    public OrderManager theOrder;
+    private OrderManager theOrder;
     private FadeManager theFade;
     private TransferScene theScene;
 
@@ -48,10 +50,13 @@ public class PlayerManager : MovingObject
     private bool attacking = false;
     public float attackDelay;
     private float currentAttackDelay;
+    public bool canStartPointMove;
 
     // Start is called before the first frame update
     void Start()
     {
+        StartCoroutine(canStartPointMoveCoroutine());
+
         //if문을 거치고 instance에 값이 주어짐
         if (instance == null)
         {
@@ -68,12 +73,19 @@ public class PlayerManager : MovingObject
             theOrder = FindObjectOfType<OrderManager>();
             theFade = FindObjectOfType<FadeManager>();
             theScene = FindObjectOfType<TransferScene>();
+            theSaveNLoad = FindObjectOfType<SaveNLoad>();
         }
         //다음 또 if문을 거치면 instance 값이 있으므로 객체가 삭제됨
         else
         {
             Destroy(this.gameObject);
         }
+    }
+
+    IEnumerator canStartPointMoveCoroutine()
+    {
+        yield return new WaitForSeconds(0.1f);
+        canStartPointMove = true;
     }
 
     //코루틴
@@ -197,6 +209,19 @@ public class PlayerManager : MovingObject
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.F5))
+        {
+            //저장
+            theSaveNLoad.CallSave();
+        }
+        if(Input.GetKeyDown(KeyCode.F9))
+        {
+            canStartPointMove = false;
+            //불러오기
+            theSaveNLoad.CallLoad();
+            StartCoroutine(canStartPointMoveCoroutine());
+        }
+
         if (canMove && !notMove && !attacking)
         {
             //Horizontal: 우 방향키는 1, 좌 방향키는 -1 리턴. Vertical: 상 방향키는 1, 하 방향키는 -1 리턴
