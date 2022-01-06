@@ -5,7 +5,9 @@
 [![Build Status][travis-image]][travis-url]
 [![Downloads Stats][npm-downloads]][npm-url]
 
-한 두 문단으로 프로젝트 소개 글을 작성합니다.
+RPG MAKER 분위기의 게임, 즉 쯔꾸르 스타일의 게임을 제작하는 실습입니다.
+
+링크 : https://www.inflearn.com/course/unity#
 
 ![](../header.png)
 
