@@ -678,9 +678,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1975078528}
-        m_TargetAssemblyTypeName: SaveNLoad, Assembly-CSharp
-        m_MethodName: CallLoad
+      - m_Target: {fileID: 1735110660}
+        m_TargetAssemblyTypeName: Title, Assembly-CSharp
+        m_MethodName: LoadGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
