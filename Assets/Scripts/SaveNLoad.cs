@@ -61,6 +61,7 @@ public class SaveNLoad : MonoBehaviour
     private DatabaseManager theDatabase;
     private Inventory theInven;
     private Equipment theEquip;
+    private FadeManager theFade;
 
     public Data data;
 
@@ -165,6 +166,9 @@ public class SaveNLoad : MonoBehaviour
             thePlayerStat = FindObjectOfType<PlayerStat>();
             theEquip = FindObjectOfType<Equipment>();
             theInven = FindObjectOfType<Inventory>();
+            theFade = FindObjectOfType<FadeManager>();
+
+            theFade.FadeOut();
 
             //data에 저장된 정보들을 다시 불러옴
             thePlayer.currentMapName = data.mapName;
@@ -237,13 +241,8 @@ public class SaveNLoad : MonoBehaviour
             //저장된 인벤토리 불러옴
             theInven.LoadItem(itemList);
             theEquip.ShowTxT();
-            
-            //로드 후 실행됨(코루틴)
-            GameManager theGM = FindObjectOfType<GameManager>();
-            theGM.LoadStart();
 
-            //씬 로드
-            SceneManager.LoadScene(data.sceneName);
+            StartCoroutine(WaitCoroutine());
         }
         else
         {
@@ -252,5 +251,17 @@ public class SaveNLoad : MonoBehaviour
 
         //열었던 파일 닫음
         file.Close();
+    }
+
+    IEnumerator WaitCoroutine()
+    {
+        yield return new WaitForSeconds(2.5f);
+
+        //로드 후 실행됨(코루틴)
+        GameManager theGM = FindObjectOfType<GameManager>();
+        theGM.LoadStart();
+
+        //씬 로드
+        SceneManager.LoadScene(data.sceneName);
     }
 }

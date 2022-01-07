@@ -102,7 +102,7 @@ public class FadeManager : MonoBehaviour
             black.color = color;
             yield return waitTime;
         }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         thePlayer.notMove = false;
     }
 

@@ -50,13 +50,11 @@ public class PlayerManager : MovingObject
     private bool attacking = false;
     public float attackDelay;
     private float currentAttackDelay;
-    public bool canStartPointMove;
+    public bool canStartPointMove = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(canStartPointMoveCoroutine());
-
         //if문을 거치고 instance에 값이 주어짐
         if (instance == null)
         {
@@ -82,10 +80,20 @@ public class PlayerManager : MovingObject
         }
     }
 
-    IEnumerator canStartPointMoveCoroutine()
+    public IEnumerator canStartPointMoveCoroutine()
     {
         yield return new WaitForSeconds(0.1f);
         canStartPointMove = true;
+    }
+
+    //타이틀로 돌아가기 전 캐릭터 위치, 투명도 초기화
+    public void GoToStartPoint()
+    {
+        this.transform.position = new Vector3(288f, -216f, transform.position.z);
+        Color color = GetComponent<SpriteRenderer>().color;
+        color.a = 0f;
+        GetComponent<SpriteRenderer>().color = color;
+        //this.gameObject.SetActive(false);
     }
 
     //코루틴
@@ -209,18 +217,18 @@ public class PlayerManager : MovingObject
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.F5))
-        {
-            //저장
-            theSaveNLoad.CallSave();
-        }
-        if(Input.GetKeyDown(KeyCode.F9))
-        {
-            canStartPointMove = false;
-            //불러오기
-            theSaveNLoad.CallLoad();
-            StartCoroutine(canStartPointMoveCoroutine());
-        }
+        // if(Input.GetKeyDown(KeyCode.F5))
+        // {
+        //     //저장
+        //     theSaveNLoad.CallSave();
+        // }
+        // if(Input.GetKeyDown(KeyCode.F9))
+        // {
+        //     canStartPointMove = false;
+        //     //불러오기
+        //     theSaveNLoad.CallLoad();
+        //     StartCoroutine(canStartPointMoveCoroutine());
+        // }
 
         if (canMove && !notMove && !attacking)
         {

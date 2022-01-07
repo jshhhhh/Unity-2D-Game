@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
@@ -27,6 +28,9 @@ public class Menu : MonoBehaviour
     public GameObject go;
     public AudioManager theAudio;
     public OrderManager theOrder;
+    public PlayerManager thePlayer;
+
+    public GameObject[] gos;
 
     public string call_sound;
     public string cancel_sound;
@@ -46,6 +50,19 @@ public class Menu : MonoBehaviour
         go.SetActive(false);
         theAudio.Play(cancel_sound);
         theOrder.Move();
+    }
+
+    public void GoToTitle()
+    {
+        thePlayer = FindObjectOfType<PlayerManager>();
+        thePlayer.canStartPointMove = false;
+        thePlayer.GoToStartPoint();
+
+        for(int i = 0; i < gos.Length; i++)
+            Destroy(gos[i]);
+        go.SetActive(false);
+        activated = false;
+        SceneManager.LoadScene("title");
     }
 
     // Update is called once per frame

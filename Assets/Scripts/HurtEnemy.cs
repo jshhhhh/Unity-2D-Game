@@ -16,6 +16,7 @@ public class HurtEnemy : MonoBehaviour
     void Start()
     {
         thePlayerStat = FindObjectOfType<PlayerStat>();
+        parent = GameObject.Find("SystemCanvas");
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

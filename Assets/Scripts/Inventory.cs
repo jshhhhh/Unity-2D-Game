@@ -83,7 +83,7 @@ public class Inventory : MonoBehaviour
         theOOC = FindObjectOfType<OKOrCancel>();
         theEquip = FindObjectOfType<Equipment>();
 
-        //리스로 만듦
+        //리스트로 만듦
         inventoryItemList = new List<Item>();
         inventoryTabList = new List<Item>();
         //InventorySlot이 가지고 있는 타입을 slot에 넣음
