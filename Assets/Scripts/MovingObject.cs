@@ -137,10 +137,10 @@ public class MovingObject : MonoBehaviour
         RaycastHit2D hit;
 
         //A지점, 캐릭터의 현재 위치값
-        Vector2 start = transform.position;
+        Vector2 start = new Vector2(transform.position.x + vector.x * speed * walkCount, transform.position.y + vector.y * speed * walkCount);
         //B지점, 캐릭터가 이동하고자 하는 위치값이 저장됨
         //현재 위치값 + 앞으로 이동하고자 하는 위치값이 저장됨
-        Vector2 end = start + new Vector2(vector.x * speed * walkCount, vector.y * speed * walkCount);
+        Vector2 end = start + new Vector2(vector.x * speed, vector.y * speed);
 
         //캐릭터 자체의 boxCollider에 충돌하는 일을 막기 위해 boxCollider를 끄고 레이저를 쏜 후에 다시 켜줌
         boxCollider.enabled = false;
