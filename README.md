@@ -1,35 +1,17 @@
 # Unity-2D-Game
-> 2D 게임 프로그래밍 강의 실습
 
-[![NPM Version][npm-image]][npm-url]
-[![Build Status][travis-image]][travis-url]
-[![Downloads Stats][npm-downloads]][npm-url]
+> 2D 게임 프로그래밍 강의 실습
 
 RPG MAKER 분위기의 게임, 즉 쯔꾸르 스타일의 게임을 제작하는 실습입니다.
 
-링크 : https://www.inflearn.com/course/unity#
+<img alt="unity" src ="https://img.shields.io/badge/unity-fafafa.svg?&style=for-the-badge&logo=unity&logoColor=black"/> <img alt="c sharp" src ="https://img.shields.io/badge/csharp-239120.svg?&style=for-the-badge&logo=csharp&logoColor=white"/>
 
-![](../header.png)
 
-## 설치 방법
+강좌 링크 : https://www.inflearn.com/course/unity#
 
-OS X & 리눅스:
+## 공부 기간
 
-```sh
-npm install my-crazy-module --save
-```
-
-윈도우:
-
-```sh
-edit autoexec.bat
-```
-
-## 사용 예제
-
-스크린 샷과 코드 예제를 통해 사용 방법을 자세히 설명합니다.
-
-_더 많은 예제와 사용법은 [Wiki][wiki]를 참고하세요._
+2021.10.15 ~ 2022.01.08
 
 ## 개발 환경 설정
 
